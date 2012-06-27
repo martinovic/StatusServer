@@ -1,0 +1,6 @@
+{
+  "venv": "", 
+  "name": "StatusServers", 
+  "license": "GNU General Public License v3", 
+  "description": "App para verificar el estado de servidores"
+}
