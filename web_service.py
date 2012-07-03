@@ -20,7 +20,7 @@ def application(request):
 
     print("-" * 90)
     if request.form["param1"] == "app":
-        print("op APP")
+        print("Solicitud de APP")
         servers = pickle.load(open("servers.pickle", "rb"))
         incidencias = ""
         incidenciaTpl = '{"ip":"%s","port":"%s","estado":"%s"},'
@@ -29,8 +29,7 @@ def application(request):
                 str(i[3])))
         respuesta = '{"lista": [' + incidencias[:-1] + ']}'
     else:
-        print("op ListaFallos")
-        print(request.form["ipServer"])
+        print("Solicitud de lista de fallos de un servidor")
         respuesta = mysqlCnx(request.form["ipServer"])
         incidencias = ""
         incidenciaTpl = '{"ip":"%s","port":"%s","fecha":"%s"},'
@@ -43,36 +42,10 @@ def application(request):
     return Response(respuesta)
 
 
-def estado(request):
-    """
-        Muestra el estado de los servicios
-    """
-    print("in estado")
-    servers = pickle.load(open("servers.pickle", "rb"))
-    incidencias = ""
-    incidenciaTpl = '{"ip":"%s","port":"%s","estado":"%s"},'
-    for i in servers:
-        incidencias += (incidenciaTpl % (str(i[0]), str(i[1]), \
-            str(i[3])))
-    respuesta = '{"lista": [' + incidencias[:-1] + ']}'
-    return respuesta
-
-
-def historial():
-    """
-        Muestra el historial de eventos
-        Limite de eventos 50
-    """
-    #    fecha = datetime.datetime.strptime(str(datetime.datetime.now()), \
-    #                                    '%Y-%m-%d %H:%M:%S.%f')
-    #    for idIncidencia, ip, port, fecha, mail_enviado in mysqlCnx():
-    #        incidencias += (incidenciaTpl % (ip, port, fecha, mail_enviado))
-    pass
-
-
 def mysqlCnx(ipServer):
     """
         Conector de base de datos
+        y consulta ppor una ip en particular
     """
     host = '127.0.0.1'
     user = 'root'

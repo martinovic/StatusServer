@@ -5,7 +5,7 @@
 Esta clase tiene como fin poder probar el status de los servidores
 remotos para los puertos seleccionados
     :author: Marcelo Martinovic
-    :version: 0.1.3
+    :version: 0.1.4
     :organization: Marcelo Martinovic
     :license: GPL
     :contact: marcelo dot martinovic at gmail dot com
