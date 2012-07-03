@@ -129,6 +129,7 @@ class StatusServers:
                     if(self.servers[srv][3] == 'False'):
                         self.servers[srv][3] = 'True'
                         self.mysqlCnx()
+                        self.fileWrite()
                         self.envioDeCorreoAlerta()
                     else:
                         self.screen.addstr(posY, 45, "\t\t ...aviso emitido",
@@ -217,6 +218,19 @@ class StatusServers:
         conn.commit()
         resultado = cursorMysql.fetchall()
         return resultado
+
+    def fileWrite(self):
+        """
+            Abre el archivo para guardar los datos
+        """
+        formato = '%Y_%m_%d'
+        fecha = datetime.datetime.strptime(str(datetime.datetime.now()),\
+             '%Y-%m-%d %H:%M:%S.%f')
+        fileHandler = open(fecha.strftime(formato) + ".csv", "a")
+        dataLine = (str(self.ip) + "," + str(self.port) +
+            "," + str(fecha) + "1" + "\n")
+        fileHandler.write(dataLine)
+        fileHandler.close()
 
 
 def main():
